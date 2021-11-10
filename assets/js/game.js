@@ -14,6 +14,10 @@ console.log(enemyNames.length);
 console.log(enemyNames[0]);
 console.log(enemyNames[3]);
 
+// display the player's score in an alert and then ask the player if they want to play again
+
+// ask if they want to visit the shop
+
 //fight function
 var fight = function(enemyName) {
     while (playerHealth > 0 && enemyHealth > 0) {
@@ -71,28 +75,77 @@ var fight = function(enemyName) {
     }
   };
         
-        
-for (var i = 0; i < enemyNames.length; i++) {
-    if (playerHealth > 0) {
-        window.alert(' Welcome to the Robot Gladiatiors! Round ' + (i  + 1));
+// function to start a new game       
+var startGame = function() {
+  // reset player stats
+  playerHealth = 100;
+  playerAttack = 10;
+  playerMoney =10;
+
+    for (var i = 0; i < enemyNames.length; i++) {
+    
+        if (playerHealth > 0) {
+         window.alert(' Welcome to the Robot Gladiatiors! Round ' + (i  + 1));
 
         //pick new enemy to fight based on the index of the enemyNames array
-        var pickedEnemyName = enemyNames[i];
+          var pickedEnemyName = enemyNames[i];
 
         //reset enemyHealth before starting new fight
-        enemyHealth = 50;
+          enemyHealth = 50;
 
         // use debugger to pause script from runninh and check ehat's going on at the moment in the code
         //debugger;
 
         // pass the pickedEnemyName variable's value into the fight function, where it will assume thevalue of the enemyName parameter
-        fight(pickedEnemyName);
+          fight(pickedEnemyName);
         
-    }
+        }
+
+        
     
-    else {
-        window.alert( " You have lost your robot in battle! Game Over!");
-        break;
-    }
+        else {
+            window.alert( " You have lost your robot in battle! Game Over!");
+            break;
+        }
     
-}
+    }
+    // after the loop ends, player is either out of health or enemies to fight, so run the endGame function
+    endGame();
+    //play again
+    // startGame();
+};
+
+// function to end the entire game
+var endGame = function () {
+  // if the player is still alive, player wins!
+  if (playerHealth > 0) {
+    window.alert( "Great job, you've survived the game! You now have a score of " + playerMoney + " . " );
+  }
+  else {
+    window.alert(" You've lost your robot in battle. ");
+  }
+
+  // ask the player if they'd like to play again
+  var playAgainConfirm = window.confirm(" Would you like to play again? ");
+
+  if (playAgainConfirm) {
+    //restart the game
+    startGame();
+  }
+  else  {
+    window.alert(" Thank you for playing Robot Gladiators! Come back soon! ")
+  }
+};
+
+// start the game when the page loads
+startGame();
+
+// Add the startGame() function to define (and reset) the state of the game.
+
+// Add the endGame() function to display stats and prompt the player to play again.
+
+// Finalize the MVP and switch branches.
+
+// Add the shop() function for all shop-related logic.
+
+// Save our progress by using Git.
