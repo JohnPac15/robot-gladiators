@@ -14,9 +14,7 @@ console.log(enemyNames.length);
 console.log(enemyNames[0]);
 console.log(enemyNames[3]);
 
-// display the player's score in an alert and then ask the player if they want to play again
 
-// ask if they want to visit the shop
 
 //fight function
 var fight = function(enemyName) {
@@ -73,8 +71,10 @@ var fight = function(enemyName) {
         window.alert(playerName + ' still has ' + playerHealth + ' health left.');
       }
     }
-  };
-        
+};
+
+
+  
 // function to start a new game       
 var startGame = function() {
   // reset player stats
@@ -98,6 +98,17 @@ var startGame = function() {
 
         // pass the pickedEnemyName variable's value into the fight function, where it will assume thevalue of the enemyName parameter
           fight(pickedEnemyName);
+
+          // if we're not at the last enemy in the array
+          if ( playerHealth > 0 && i < enemyNames.length - 1) {
+            var storeConfirm = window.confirm(" The fight is over, visit the store before the next round");
+
+            //if yes, take them to the store() function
+            if (storeConfirm) {
+              shop();
+            }
+          }
+
         
         }
 
@@ -117,6 +128,7 @@ var startGame = function() {
 
 // function to end the entire game
 var endGame = function () {
+  window.alert(" The game has now ended, Lets see how you did! ")
   // if the player is still alive, player wins!
   if (playerHealth > 0) {
     window.alert( "Great job, you've survived the game! You now have a score of " + playerMoney + " . " );
@@ -137,15 +149,62 @@ var endGame = function () {
   }
 };
 
+var shop = function() {
+  //ask the player ehat they'd like to do
+  var shopOptionsPrompt = window.prompt(
+    " Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: ' REFILL', ' UPGRADE ', or ' LEAVE ' to make a choice. "
+  );
+
+  //use the switch to carry out action
+  switch (shopOptionsPrompt) {
+    case " refill ": //new case
+    case " REFILL ":
+
+      if (playerMoney >= 7) {
+        window.alert(" Refilling playe's health by 20 for 7 dollars. ");
+      
+
+      //increase health and decrease money
+      playerHealth = playerHealth + 20;
+      playerMoney = playerMoney - 7;
+    }
+    else {
+      window.alert(" You do not have enough money! ");
+    }
+
+      break;
+    case "upgrade":
+    case " UPGRADE ": // new case
+      if (playerMoney >= 7) {
+        window.alert( " Upgrading player;s attack by 6 for 7 dollars. ");
+      
+        //increase attack and decrease money
+        playerAttack = playerAttack + 6;
+        playerMoney = playerMoney - 7;
+      }
+      else {
+        window.alert(" You do not have enough money! ");
+      }
+
+      break;
+
+    case " leave ":
+    case " LEAVE ":
+      window.alert(" Leaving the store ");
+
+      //do nothing, so function will end
+      break;
+
+    default:
+      window.alert(" You did not piack a valid option. Try again. ");
+
+      //call shop again to force the player to pick a valid option
+      shop();
+      break;
+      
+  }
+};
+
 // start the game when the page loads
 startGame();
 
-// Add the startGame() function to define (and reset) the state of the game.
-
-// Add the endGame() function to display stats and prompt the player to play again.
-
-// Finalize the MVP and switch branches.
-
-// Add the shop() function for all shop-related logic.
-
-// Save our progress by using Git.
